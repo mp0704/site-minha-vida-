@@ -1,0 +1,709 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para minha Vida ❤️</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --fundo: #190d18;
+            --fundo-card: #291525;
+            --rosa: #ff8fab;
+            --rosa-claro: #ffd6e0;
+            --dourado: #f3ce83;
+            --branco: #fff7fa;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Georgia, "Times New Roman", serif;
+            background: var(--fundo);
+            color: var(--branco);
+            text-align: center;
+            overflow-x: hidden;
+        }
+
+        button {
+            font-family: inherit;
+        }
+
+        .tela-presente {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 25px;
+            background:
+                radial-gradient(circle at top, #542342 0%, transparent 45%),
+                var(--fundo);
+        }
+
+        .tela-presente h1 {
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            color: var(--rosa-claro);
+            margin-bottom: 12px;
+        }
+
+        .tela-presente p {
+            color: #eacbd9;
+            line-height: 1.7;
+            max-width: 450px;
+        }
+
+        .presente {
+            position: relative;
+            width: 150px;
+            height: 125px;
+            margin: 60px 0 35px;
+            cursor: pointer;
+            animation: flutuar 2s ease-in-out infinite;
+            transition: transform 0.3s;
+        }
+
+        .presente:hover {
+            transform: scale(1.08);
+        }
+
+        .caixa {
+            position: absolute;
+            width: 150px;
+            height: 95px;
+            bottom: 0;
+            background: #d94c77;
+            border-radius: 5px 5px 10px 10px;
+            box-shadow: 0 15px 35px #0005;
+        }
+
+        .caixa::before {
+            content: "";
+            position: absolute;
+            width: 25px;
+            height: 100%;
+            background: var(--dourado);
+            left: 62px;
+        }
+
+        .tampa {
+            position: absolute;
+            width: 166px;
+            height: 27px;
+            top: 15px;
+            left: -8px;
+            background: #f16c91;
+            border-radius: 5px;
+            z-index: 2;
+            transition: transform 0.7s ease;
+        }
+
+        .tampa::before {
+            content: "";
+            position: absolute;
+            width: 25px;
+            height: 100%;
+            background: var(--dourado);
+            left: 70px;
+        }
+
+        .laco {
+            position: absolute;
+            width: 42px;
+            height: 30px;
+            border: 8px solid var(--dourado);
+            border-radius: 50% 50% 0 50%;
+            top: -13px;
+            left: 31px;
+            transform: rotate(25deg);
+        }
+
+        .laco.direito {
+            left: 76px;
+            transform: rotate(65deg) scaleX(-1);
+        }
+
+        .presente.aberto .tampa {
+            transform: translateY(-70px) rotate(-15deg);
+        }
+
+        .botao {
+            border: none;
+            background: linear-gradient(135deg, #ff8fab, #d94c77);
+            color: #321326;
+            font-size: 1rem;
+            font-weight: bold;
+            padding: 14px 27px;
+            border-radius: 50px;
+            cursor: pointer;
+            margin: 12px;
+            box-shadow: 0 5px 20px #ff8fab30;
+            transition: transform 0.2s, filter 0.2s;
+        }
+
+        .botao:hover {
+            transform: translateY(-3px);
+            filter: brightness(1.08);
+        }
+
+        .mensagem-presente {
+            display: none;
+            max-width: 500px;
+            background: #ffffff0c;
+            border: 1px solid #ff8fab55;
+            border-radius: 20px;
+            padding: 25px;
+            margin: 5px 0 20px;
+            animation: aparecer 0.8s ease;
+        }
+
+        .mensagem-presente.visivel {
+            display: block;
+        }
+
+        .mensagem-presente h2 {
+            color: var(--rosa);
+            margin-bottom: 12px;
+        }
+
+        .site {
+            display: none;
+            animation: aparecer 1s ease;
+        }
+
+        .site.visivel {
+            display: block;
+        }
+
+        header {
+            min-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            background:
+                linear-gradient(#190d1866, #190d18),
+                radial-gradient(circle at center, #77344f, #190d18 75%);
+        }
+
+        .pequeno {
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--dourado);
+            font-size: 0.8rem;
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            font-size: clamp(2.7rem, 8vw, 5.5rem);
+            color: var(--rosa-claro);
+            margin-bottom: 18px;
+        }
+
+        header p {
+            max-width: 600px;
+            font-size: 1.1rem;
+            line-height: 1.9;
+            color: #f3dce7;
+        }
+
+        .coracao {
+            color: var(--rosa);
+            display: inline-block;
+            animation: pulsar 1.2s infinite;
+        }
+
+        section {
+            padding: 75px 20px;
+        }
+
+        section h2 {
+            color: var(--rosa-claro);
+            font-size: clamp(1.8rem, 5vw, 2.6rem);
+            margin-bottom: 20px;
+        }
+
+        .subtitulo {
+            color: #d8b9ca;
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
+        .cartao {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: clamp(25px, 5vw, 45px);
+            border-radius: 22px;
+            background: var(--fundo-card);
+            border: 1px solid #ff8fab35;
+            box-shadow: 0 15px 50px #0002;
+        }
+
+        .carta {
+            font-size: 1.08rem;
+            line-height: 2;
+            color: #f5e5ed;
+            text-align: left;
+            white-space: pre-line;
+        }
+
+        .assinatura {
+            color: var(--rosa);
+            text-align: right;
+            margin-top: 25px;
+            font-style: italic;
+            font-size: 1.2rem;
+        }
+
+        .contador {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(65px, 1fr));
+            gap: 12px;
+            max-width: 650px;
+            margin: 35px auto 0;
+        }
+
+        .tempo {
+            background: var(--fundo-card);
+            padding: 22px 8px;
+            border: 1px solid #ff8fab40;
+            border-radius: 16px;
+        }
+
+        .tempo strong {
+            display: block;
+            font-size: clamp(1.7rem, 5vw, 2.5rem);
+            color: var(--rosa);
+            margin-bottom: 8px;
+        }
+
+        .tempo span {
+            font-size: 0.85rem;
+            color: #e9cbd9;
+        }
+
+        .musica {
+            max-width: 600px;
+            margin: 30px auto 0;
+            overflow: hidden;
+            border-radius: 15px;
+        }
+
+        .musica iframe {
+            width: 100%;
+            height: 152px;
+            border: none;
+        }
+
+        .surpresa-texto {
+            display: none;
+            max-width: 700px;
+            margin: 30px auto 0;
+            padding: 30px;
+            border-radius: 20px;
+            background: var(--fundo-card);
+            border: 1px solid #f3ce8366;
+            color: var(--rosa-claro);
+            font-size: 1.15rem;
+            line-height: 2;
+            animation: aparecer 1s ease;
+        }
+
+        .surpresa-texto.visivel {
+            display: block;
+        }
+
+        footer {
+            padding: 35px 20px;
+            background: #10080f;
+            color: #d8b9ca;
+            line-height: 1.8;
+        }
+
+        .flutuante {
+            position: fixed;
+            bottom: -30px;
+            color: #ff8fab;
+            opacity: 0.65;
+            pointer-events: none;
+            z-index: 10;
+            animation: subir linear forwards;
+        }
+
+        @keyframes flutuar {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        @keyframes pulsar {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        @keyframes aparecer {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes subir {
+            to {
+                transform: translateY(-110vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .contador {
+                grid-template-columns: repeat(2, 1fr);
+                max-width: 320px;
+            }
+
+            section {
+                padding: 55px 16px;
+            }
+
+            .carta {
+                font-size: 1rem;
+            }
+
+            .pequeno {
+                letter-spacing: 2px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- PRIMEIRA TELA: PRESENTE -->
+    <div class="tela-presente" id="telaPresente">
+        <h1>Tenho algo para você...</h1>
+
+        <p>
+            Preparei uma pequena surpresa para a pessoa
+            que tornou minha vida muito mais bonita.
+        </p>
+
+        <div class="presente" id="presente" role="button"
+             tabindex="0" aria-label="Abrir o presente">
+            <div class="tampa">
+                <div class="laco"></div>
+                <div class="laco direito"></div>
+            </div>
+            <div class="caixa"></div>
+        </div>
+
+        <p id="instrucao">Toque no presente para abrir, Vida ❤️</p>
+
+        <div class="mensagem-presente" id="mensagemPresente">
+            <h2>Para o meu amor ❤️</h2>
+            <p>
+                Se eu pudesse escolher novamente,
+                escolheria você em todas as vidas.
+                Esse presente é só uma pequena forma
+                de demonstrar o tamanho do meu amor.
+            </p>
+
+            <button class="botao" id="entrarSite">
+                Abrir minha surpresa ❤️
+            </button>
+        </div>
+    </div>
+
+    <!-- SITE PRINCIPAL -->
+    <main class="site" id="site">
+
+        <header>
+            <div class="pequeno">28 de setembro de 2025</div>
+
+            <h1>Minha Vida <span class="coracao">♥</span></h1>
+
+            <p>
+                Entre tantas pessoas no mundo, Deus permitiu
+                que nossos caminhos se encontrassem.
+                E, desde então, uma das minhas maiores certezas
+                é que quero continuar escolhendo você todos os dias.
+            </p>
+
+            <button class="botao" onclick="irPara('carta')">
+                Ler minha cartinha 💌
+            </button>
+        </header>
+
+        <section id="carta">
+            <h2>Uma carta para você 💌</h2>
+            <p class="subtitulo">
+                Algumas coisas merecem ser ditas mais de uma vez.
+            </p>
+
+            <div class="cartao">
+                <div class="carta">Meu amor, minha Vida...
+
+Desde que você chegou à minha vida, muita coisa ganhou um significado diferente. Você se tornou meu carinho nos dias difíceis, minha felicidade nas pequenas coisas e uma das minhas maiores motivações para continuar sonhando.
+
+Eu agradeço a Deus por ter colocado você no meu caminho. Quero estar ao seu lado nos dias bons e também naqueles em que tudo parecer complicado. Quero comemorar suas conquistas, apoiar seus sonhos, segurar sua mão quando você precisar e lembrar que você nunca precisa enfrentar tudo sozinha.
+
+Sei que não sou perfeito e que ainda tenho muito a aprender. Mas quero continuar crescendo com você, aprendendo a amar melhor, cuidando do nosso relacionamento e construindo uma história da qual possamos nos orgulhar.
+
+Quando penso no futuro, imagino nós dois realizando nossos sonhos, viajando, construindo nosso lar, formando nossa família e compartilhando aquelas pequenas coisas que acabam sendo as mais especiais: acordar juntos, conversar sobre o dia e terminar a noite com um abraço.
+
+Eu não quero apenas viver momentos bonitos com você. Quero construir uma vida bonita ao seu lado.
+
+Obrigado por ser você, por seu carinho, por sua companhia e por fazer parte da minha história.
+
+Que Deus continue abençoando nosso amor e guiando cada passo nosso. Que nunca nos falte respeito, paciência, cumplicidade e vontade de escolher um ao outro.
+
+Eu te amo, minha vida. Hoje, amanhã e em todos os dias que Deus permitir.
+
+Você é meu amor, meu presente e um dos sonhos mais bonitos que quero realizar.
+
+Além do infinito. ❤️</div>
+
+                <div class="assinatura">
+                    Com todo o meu amor, sempre seu. ❤️
+                </div>
+            </div>
+        </section>
+
+        <section id="tempo">
+            <h2>Nosso tempo juntos ⏳</h2>
+            <p class="subtitulo">
+                Desde o dia em que nossa história começou,
+                cada segundo tem seu valor.
+            </p>
+
+            <div class="contador">
+                <div class="tempo">
+                    <strong id="dias">0</strong>
+                    <span>Dias</span>
+                </div>
+
+                <div class="tempo">
+                    <strong id="horas">00</strong>
+                    <span>Horas</span>
+                </div>
+
+                <div class="tempo">
+                    <strong id="minutos">00</strong>
+                    <span>Minutos</span>
+                </div>
+
+                <div class="tempo">
+                    <strong id="segundos">00</strong>
+                    <span>Segundos</span>
+                </div>
+            </div>
+
+            <p class="subtitulo" style="margin-top: 25px;">
+                E que esse contador continue aumentando por muitos e muitos anos. ❤️
+            </p>
+        </section>
+
+        <section id="musica">
+            <h2>Uma música para nós 🎶</h2>
+            <p class="subtitulo">
+                Porque algumas músicas fazem a gente lembrar
+                de alguém especial.
+            </p>
+
+            <div class="musica">
+                <iframe
+                    src="https://open.spotify.com/embed/track/3iuC8v3WfFpMqQRg1NHDZM?utm_source=generator"
+                    title="Nossa música no Spotify"
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                    loading="lazy">
+                </iframe>
+            </div>
+
+            <p class="subtitulo" style="margin-top: 18px;">
+                Aperte o play e aproveite esse momento, meu amor. ❤️
+            </p>
+        </section>
+
+        <section id="surpresa">
+            <h2>Guardei mais uma coisinha... 🎁</h2>
+
+            <p class="subtitulo">
+                Tem certeza de que quer descobrir?
+            </p>
+
+            <button class="botao" id="botaoSurpresa">
+                Revelar minha surpresa ❤️
+            </button>
+
+            <div class="surpresa-texto" id="surpresaTexto">
+                <h2>Você é a minha escolha! ❤️</h2>
+
+                <p>
+                    Se eu pudesse voltar no tempo e viver tudo
+                    novamente, ainda escolheria conhecer você.
+                    Escolheria cada conversa, cada sorriso,
+                    cada abraço, cada aprendizado e cada momento
+                    que nos trouxe até aqui.
+                </p>
+
+                <p>
+                    Meu maior desejo é que a nossa história continue
+                    sendo escrita com amor, respeito, fé e companheirismo.
+                    Quero olhar para você daqui a muitos anos e sentir
+                    a mesma felicidade de ter você ao meu lado.
+                </p>
+
+                <p>
+                    Que Deus abençoe nossos planos, nosso futuro,
+                    nossa casa e a família que ainda sonhamos construir.
+                </p>
+
+                <p>
+                    <strong>Eu te amo, Vida. Além do infinito! ❤️</strong>
+                </p>
+
+                <p style="margin-top: 20px; color: var(--dourado);">
+                    “Portanto, o que Deus uniu, ninguém separe.” — Mateus 19:6
+                </p>
+            </div>
+        </section>
+
+        <footer>
+            Feito com muito amor para minha Vida ❤️
+            <br>
+            Nossa história começou em 28/09/2025.
+            <br>
+            Que seja para a vida inteira. ♾️
+        </footer>
+
+    </main>
+
+    <script>
+        const presente = document.getElementById("presente");
+        const mensagemPresente = document.getElementById("mensagemPresente");
+        const instrucao = document.getElementById("instrucao");
+        const telaPresente = document.getElementById("telaPresente");
+        const site = document.getElementById("site");
+        const entrarSite = document.getElementById("entrarSite");
+
+        let presenteAberto = false;
+
+        function abrirPresente() {
+            if (presenteAberto) {
+                return;
+            }
+
+            presenteAberto = true;
+            presente.classList.add("aberto");
+            mensagemPresente.classList.add("visivel");
+            instrucao.textContent = "Uma surpresa feita especialmente para você! ❤️";
+        }
+
+        presente.addEventListener("click", abrirPresente);
+
+        presente.addEventListener("keydown", function(evento) {
+            if (evento.key === "Enter" || evento.key === " ") {
+                evento.preventDefault();
+                abrirPresente();
+            }
+        });
+
+        entrarSite.addEventListener("click", function() {
+            telaPresente.style.display = "none";
+            site.classList.add("visivel");
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+            atualizarContador();
+        });
+
+        function irPara(id) {
+            document.getElementById(id).scrollIntoView({
+                behavior: "smooth"
+            });
+        }
+
+        // Data de início do relacionamento:
+        // 28 de setembro de 2025, à meia-noite.
+        const inicioRelacionamento = new Date(2025, 8, 28, 0, 0, 0);
+
+        function atualizarContador() {
+            const agora = new Date();
+            let diferenca = agora - inicioRelacionamento;
+
+            if (diferenca < 0) {
+                diferenca = 0;
+            }
+
+            const totalSegundos = Math.floor(diferenca / 1000);
+
+            const dias = Math.floor(totalSegundos / 86400);
+            const horas = Math.floor((totalSegundos % 86400) / 3600);
+            const minutos = Math.floor((totalSegundos % 3600) / 60);
+            const segundos = totalSegundos % 60;
+
+            document.getElementById("dias").textContent = dias;
+            document.getElementById("horas").textContent =
+                String(horas).padStart(2, "0");
+            document.getElementById("minutos").textContent =
+                String(minutos).padStart(2, "0");
+            document.getElementById("segundos").textContent =
+                String(segundos).padStart(2, "0");
+        }
+
+        atualizarContador();
+        setInterval(atualizarContador, 1000);
+
+        // Botão que revela a surpresa final.
+        const botaoSurpresa = document.getElementById("botaoSurpresa");
+        const surpresaTexto = document.getElementById("surpresaTexto");
+
+        botaoSurpresa.addEventListener("click", function() {
+            surpresaTexto.classList.toggle("visivel");
+
+            if (surpresaTexto.classList.contains("visivel")) {
+                botaoSurpresa.textContent = "Fechar surpresa ❤️";
+
+                surpresaTexto.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
+                });
+
+                criarCoracoes();
+            } else {
+                botaoSurpresa.textContent = "Revelar minha surpresa ❤️";
+            }
+        });
+
+        // Corações flutuando pela página.
+        function criarCoracoes() {
+            for (let i = 0; i < 12; i++) {
+                const coracao = document.createElement("div");
+
+                coracao.className = "flutuante";
+                coracao.textContent = Math.random() > 0.5 ? "♥" : "♡";
+
+                coracao.style.left = Math.random() * 100 + "vw";
+                coracao.style.fontSize = (16 + Math.random() * 25) + "px";
+                coracao.style.animationDuration = (4 + Math.random() * 4) + "s";
+
+                document.body.appendChild(coracao);
+
+                setTimeout(function() {
+                    coracao.remove();
+                }, 8500);
+            }
+        }
+    </script>
+
+</body>
+</html>
